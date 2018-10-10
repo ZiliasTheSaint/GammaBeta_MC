@@ -1,0 +1,10 @@
+---------------LOG FILE---------------------------------------
+medium:  _freon-13_
+data generated on:   dd: 8 mm: 3 yyyy: 2017 ora: 18:26:55
+type=MIXT rho=0.949999988 ne=3 iunrst=0 epstfl=1 iaprim=1
+Rayleigh data included
+density correction file: D:\dlucru\Java_src\GammaBeta_MC\Data\egs\compounds\_freon-13_.density
+cross section data from: D:\dlucru\Java_src\GammaBeta_MC\Data\egs\pgs4pepr.dat
+form factor data from: D:\dlucru\Java_src\GammaBeta_MC\Data\egs\pgs4form.dat
+ae=0.521 ap=0.01 ue=55.511 up=55.0
+data written to: D:\dlucru\Java_src\GammaBeta_MC\Data\egs\interactiv\pegs4.log
