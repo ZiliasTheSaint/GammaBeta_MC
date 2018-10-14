@@ -61,7 +61,7 @@ public class GammaBetaFrameResources extends ListResourceBundle {
 
 			{ "Application.name", "GES_MC" },
 			{ "Version", "Version:" },
-			{ "Version.name", "GES_MC 4.1" },
+			{ "Version.name", "GES_MC 4.2" },
 
 			{
 					"License",

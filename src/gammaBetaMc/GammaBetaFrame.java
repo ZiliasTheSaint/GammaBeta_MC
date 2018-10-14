@@ -1389,7 +1389,7 @@ public class GammaBetaFrame extends JFrame implements ActionListener,
 		chooser.addChoosableFileFilter(jpgFilter);
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		// -----------------
-		char lineSep = '\n';// System.getProperty("line.separator").charAt(0);
+		char lineSep = '\n';//System.getProperty("line.separator").charAt(0);//'\n';//
 		int i = 0;
 		int lnr = 0;// line number
 		StringBuffer desc = new StringBuffer();
@@ -5322,6 +5322,7 @@ public class GammaBetaFrame extends JFrame implements ActionListener,
 	private String G4REALSURFACEDATA="";
 	private String G4SAIDXSDATA="";
 	protected String detFolderURL2="";
+	private String LD_LIBRARY_PATH = "";
 	//===========================================
 	/**
 	 * Initiate variables from MonteCarloPath.txt file located in current folder for 
@@ -5342,51 +5343,58 @@ public class GammaBetaFrame extends JFrame implements ActionListener,
 		G4RADIOACTIVEDATA="";
 		G4REALSURFACEDATA="";
 		G4SAIDXSDATA="";
+		LD_LIBRARY_PATH = "";
 		
 		File f = new File(filename1);
-		int i = 0;
+		//int i = 0;
 		String pathMC = "";
 
 		int countLine=0;//@@@@@@@@@@@@@@@@@@@@@@@@@
-		StringBuffer desc = new StringBuffer();
-		boolean haveData = false;
+		//StringBuffer desc = new StringBuffer();
+		//boolean haveData = false;
+		String line = "";
 		if (f.exists()) {
 			try {
-				FileReader fr = new FileReader(f);
-				while ((i = fr.read()) != -1) {
-					if (!Character.isWhitespace((char) i)) {
-						desc.append((char) i);
-						haveData = true;
-					} else {
-						if (haveData)// we have data
-						{
-							haveData = false;// reset
-							if (countLine==0){//@@@@@@@@@@@@@@
-								pathMC = pathMC + desc.toString();
-							} else if (countLine==1){
-								G4LEDATA=G4LEDATA+desc.toString();
-							}else if (countLine==2){
-								G4LEVELGAMMADATA=G4LEVELGAMMADATA+desc.toString();
-							}else if (countLine==3){
-								G4NEUTRONHPDATA=G4NEUTRONHPDATA+desc.toString();
-							}else if (countLine==4){
-								G4NEUTRONXSDATA=G4NEUTRONXSDATA+desc.toString();
-							}else if (countLine==5){
-								G4PIIDATA=G4PIIDATA+desc.toString();
-							}else if (countLine==6){
-								G4RADIOACTIVEDATA=G4RADIOACTIVEDATA+desc.toString();
-							}else if (countLine==7){
-								G4REALSURFACEDATA=G4REALSURFACEDATA+desc.toString();
-							}else if (countLine==8){
-								G4SAIDXSDATA=G4SAIDXSDATA+desc.toString();
-							}
+				//FileReader fr = new FileReader(f);
+				BufferedReader reader = new BufferedReader(new FileReader(filename1));
+				line=reader.readLine();
+				while (line!=null) {//while ((i = fr.read()) != -1) {
+					//if (!Character.isWhitespace((char) i)) {
+					//	desc.append((char) i);
+					//	haveData = true;
+					//} else {
+					//	if (haveData)// we have data
+					//	{
+					//		haveData = false;// reset
+					if (countLine==0){//@@@@@@@@@@@@@@
+						pathMC = line;//pathMC + desc.toString();//System.out.println(pathMC);
+					} else if (countLine==1){
+						G4LEDATA=line;//G4LEDATA+desc.toString();
+					}else if (countLine==2){
+						G4LEVELGAMMADATA=line;//G4LEVELGAMMADATA+desc.toString();
+					}else if (countLine==3){
+						G4NEUTRONHPDATA=line;//G4NEUTRONHPDATA+desc.toString();
+					}else if (countLine==4){
+						G4NEUTRONXSDATA=line;//G4NEUTRONXSDATA+desc.toString();
+					}else if (countLine==5){
+						G4PIIDATA=line;//G4PIIDATA+desc.toString();
+					}else if (countLine==6){
+						G4RADIOACTIVEDATA=line;//G4RADIOACTIVEDATA+desc.toString();
+					}else if (countLine==7){
+						G4REALSURFACEDATA=line;//G4REALSURFACEDATA+desc.toString();
+					}else if (countLine==8){
+						G4SAIDXSDATA=line;//G4SAIDXSDATA+desc.toString();
+					} else if (countLine==9){
+						LD_LIBRARY_PATH=line;//LD_LIBRARY_PATH+desc.toString();
+					}
 							
 							countLine++;
-						}
-						desc = new StringBuffer();
-					}					
+							line=reader.readLine();
+						//}
+						//desc = new StringBuffer();
+					//}					
 				}
-				fr.close();
+				reader.close();//fr.close();
 				pathMC.trim();G4LEDATA.trim();
 				G4LEVELGAMMADATA.trim();G4NEUTRONHPDATA.trim();G4NEUTRONXSDATA.trim();
 				G4PIIDATA.trim();G4RADIOACTIVEDATA.trim();G4REALSURFACEDATA.trim();G4SAIDXSDATA.trim();
@@ -5787,6 +5795,7 @@ public class GammaBetaFrame extends JFrame implements ActionListener,
 			str= str+G4RADIOACTIVEDATA+"\n";
 			str= str+G4REALSURFACEDATA+"\n";
 			str= str+G4SAIDXSDATA+"\n";
+			str = str+LD_LIBRARY_PATH+"\n";
 			str = str+"cd "+detFolderURL2+"; ./"+detExeFileName+" ./"+macroFilename;
 			
 			//System.out.println(str);
